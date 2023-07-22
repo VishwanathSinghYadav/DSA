@@ -44,6 +44,7 @@ connectedComponentsCount({
 solution - 
 
 solutions
+
 depth first
 const connectedComponentsCount = (graph) => {
   const visited = new Set();
@@ -72,3 +73,30 @@ n = number of nodes
 e = number edges
 Time: O(e)
 Space: O(n)
+
+depth first iterative
+
+const connectedComponentsCount = (graph) => {
+ 
+    let visited = new Set();
+    const stack = [];
+    let count = 0;
+    
+    for(let node in graph){
+      if(!visited.has(Number(node))){
+        stack.push(Number(node));
+        visited.add(Number(node));
+          while(stack.length>0){
+              let current = stack.pop();
+              visited.add(current);
+              for(let neighbor of graph[current]){
+                if(!visited.has(neighbor)){
+                  stack.push(neighbor);
+                }; 
+              };       
+          };
+        count+=1
+      }; 
+    };
+    return(count)
+  };
