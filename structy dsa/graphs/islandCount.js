@@ -75,3 +75,54 @@ r = number of rows
 c = number of columns
 Time: O(rc)
 Space: O(rc)
+
+
+// stack itterative
+const islandCount = (grid) => {
+  
+  const visited = new Set();
+  let count = 0;
+  
+  for(let row = 0; row < grid.length; row++){
+    for(let col = 0; col< grid[0].length; col++){
+        if(grid[row][col] === 'L' && !(visited.has(row + ',' + col))){
+          explore(grid, row, col, visited)
+          count += 1
+        }
+    }
+  }
+  
+  return count
+  
+};
+
+const explore = (grid, row, col, visited) =>{
+  
+  const stack = [[row, col]];
+  
+  while(stack.length > 0){
+    
+    const [currRow, currCol] = stack.pop();
+  
+    if(!(visited.has(currRow + ',' + currCol))){
+      visited.add(currRow + ',' + currCol)
+        if( 0<= currCol-1 && currCol-1 < grid[currRow].length && grid[currRow][currCol-1] === 'L'){
+         stack.push([currRow, currCol-1]);
+        };
+        if(0<= currCol+1 && currCol+1 < grid[currRow].length && grid[currRow][currCol+1] === 'L'){
+           stack.push([currRow, currCol+1]);
+        };
+        if(0<= currRow-1 && currRow-1 < grid.length && grid[currRow-1][currCol] === 'L'){
+           stack.push([currRow-1, currCol]);
+        };
+        if(0<= currRow+1 && currRow+1 < grid.length && grid[currRow+1][currCol] === 'L'){
+           stack.push([currRow+1, currCol]);
+        };
+       
+       }
+    
+  }
+  
+  return;
+  
+}
