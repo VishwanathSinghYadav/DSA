@@ -23,6 +23,51 @@ knightAttack(3, 0, 0, 1, 1); // -> null
 
 solution-
 
+solution ----
+
+const knightAttack = (n, kr, kc, pr, pc) => {
+  
+    const knightInitialPos = kr +','+ kc;
+    const pawnInitialPos = pr + ','+ pc;
+    
+    let visited = new Set([knightInitialPos]);
+    
+    let queue = [[kr, kc, 0]];
+    
+    while(queue.length > 0){
+      
+      const [currRow, currCol, distance] = queue.shift();
+      
+      let currPos = currRow + ',' + currCol;
+      if(currPos === pawnInitialPos) return distance;
+      
+      deltaPos = [[-2,-1], [-1,-2], [-2,1], [-1,+2], [2,1], [1,2], [2,-1], [1,-2]];
+      
+      for(let delta of deltaPos){
+        let [deltaRow, deltaCol] = delta;
+        let knightNextRow = currRow + deltaRow;
+        let knightNextCol = currCol + deltaCol;
+        
+        let rowInbound = 0<=knightNextRow && knightNextRow < n;
+        let colInbound = 0<=knightNextCol && knightNextCol < n;
+        
+        let knightNextPos = knightNextCol +','+ knightNextRow;
+        
+        if(!visited.has(knightNextPos) && rowInbound && colInbound){
+          
+          visited.add(knightNextPos);
+          queue.push([knightNextRow, knightNextCol, distance+1]);
+          
+        }
+        
+      }
+      
+    }
+    
+    return null
+    
+  };
+
 solution
 const knightAttack = (n, kr, kc, pr, pc) => {
   const visited = new Set();
@@ -71,3 +116,7 @@ const getKnightMoves = (n, r, c) => {
 n = length of the board
 Time: O(n^2)
 Space: O(n^2)
+
+
+  
+  
