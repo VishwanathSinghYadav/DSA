@@ -33,6 +33,28 @@ nonAdjacentSum(nums); // -> 1465
 
 solution - 
 
+const nonAdjacentSum = (nums, i = 0, memo = {}) => {
+  
+  // memoization and no slicing
+  if(i in memo) return memo[i];
+  if(i >=nums.length) return 0;
+  
+  const include = nums[i] + nonAdjacentSum(nums, i+2, memo);
+  const exclude = nonAdjacentSum(nums, i+1, memo);
+  
+  memo[i] = Math.max(include, exclude);
+  return memo[i];
+  
+  //// bruteForce 
+//   if(nums.length === 0) return 0;
+  
+//   const include = nums[0] + nonAdjacentSum(nums.slice(2));
+//   const exclude = nonAdjacentSum(nums.slice(1));
+  
+//   return Math.max(include, exclude);
+  
+};
+
 solution
 dynamic programming with memoization
 const nonAdjacentSum = (nums, i = 0, memo = {}) => {
